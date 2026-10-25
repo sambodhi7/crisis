@@ -120,6 +120,11 @@ describe('Env helper', () => {
       process.env.ARRAY_VAR = '[firstValue, secondValue]';
       expect(envHelper.array('ARRAY_VAR')).toEqual(['firstValue', 'secondValue']);
     });
+
+    test('Unwraps quoted values when items have spaces after commas', () => {
+      process.env.ARRAY_VAR = '["http://alpha.test", "http://beta.test"]';
+      expect(envHelper.array('ARRAY_VAR')).toEqual(['http://alpha.test', 'http://beta.test']);
+    });
   });
 
   describe('env with date cast', () => {
