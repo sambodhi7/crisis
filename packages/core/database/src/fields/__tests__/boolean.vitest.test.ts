@@ -12,6 +12,7 @@ describe('BooleanField', () => {
       [null, null],
       [undefined, null],
       ['true', true],
+      ['false', false],
       ['t', true],
       ['1', true],
       [1, true],
