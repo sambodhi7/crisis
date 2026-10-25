@@ -6,7 +6,7 @@ import { getTrad } from '../../../utils/getTrad';
 import { createComponentUid } from '../utils/createUid';
 
 const CATEGORY_PART_SEPARATOR = '_';
-const CATEGORY_PART_REGEX = /^[A-Za-z0-9]+$/;
+const CATEGORY_PART_REGEX = /^[A-Za-z0-9-]+$/;
 
 const isValidCategoryName = (value: string) => {
   const parts = value.split(CATEGORY_PART_SEPARATOR);
