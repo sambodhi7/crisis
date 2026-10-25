@@ -4,26 +4,27 @@ const BYTE_UNITS = ['B', 'KB', 'MB', 'GB', 'TB'];
 const BYTE_UNIT_STEP = 1000;
 
 /**
- * Formats a byte value into a human-readable string with units.
+ * Formats an upload size, stored in kilobytes, into a human-readable string with units.
  *
- * @param receivedBytes - The number of bytes to format (as number or string)
+ * @param receivedKilobytes - The number of kilobytes to format (as number or string)
  * @param decimals - The number of decimal places to display (default: 0)
  * @returns A formatted string with value and unit (e.g., "1.5MB")
  *
  * @example
  * ```ts
- * formatBytes(1024) // '1KB'
- * formatBytes(1536, 1) // '1.5KB'
+ * formatBytes(1) // '1KB'
+ * formatBytes(1.5, 1) // '1.5KB'
  * ```
  */
-export function formatBytes(receivedBytes: number | string, decimals = 0) {
-  const realBytes = typeof receivedBytes === 'string' ? Number(receivedBytes) : receivedBytes;
+export function formatBytes(receivedKilobytes: number | string, decimals = 0) {
+  const realKilobytes =
+    typeof receivedKilobytes === 'string' ? Number(receivedKilobytes) : receivedKilobytes;
 
-  if (!realBytes || Number.isNaN(realBytes)) {
+  if (!realKilobytes || Number.isNaN(realKilobytes)) {
     return '0B';
   }
 
-  let scaled = Math.abs(realBytes);
+  let scaled = Math.abs(realKilobytes) * BYTE_UNIT_STEP;
   let unitIndex = 0;
 
   while (scaled >= BYTE_UNIT_STEP && unitIndex < BYTE_UNITS.length - 1) {
@@ -31,7 +32,7 @@ export function formatBytes(receivedBytes: number | string, decimals = 0) {
     unitIndex += 1;
   }
 
-  const rounded = Number(scaled.toFixed(decimals)) * Math.sign(realBytes);
+  const rounded = Number(scaled.toFixed(decimals)) * Math.sign(realKilobytes);
 
   return `${rounded}${BYTE_UNITS[unitIndex]}`;
 }
